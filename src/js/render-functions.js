@@ -6,7 +6,9 @@ export const ref = {
   gallery: document.querySelector('.gallery'),
   loader: document.querySelector('#loader'),
 };
+
 const gallery = new SimpleLightbox('.gallery a', {});
+
 export function createGallery(images) {
   const imagesMArkup = images
     .map(
@@ -24,8 +26,6 @@ export function createGallery(images) {
          <img src='${webformatURL}' alt='${tags}' width='360'
          />
          </a>
-
-
       <ul class='info-list'>
       
       <li class='info-item'>

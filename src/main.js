@@ -16,7 +16,9 @@ function formSbmtHandler(e) {
     e.currentTarget.reset();
     return;
   }
+
   showLoader();
+
   clearGallery();
 
   getImagesByQuery(input)

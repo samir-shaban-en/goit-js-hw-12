@@ -6,6 +6,7 @@ import {
   clearGallery,
   hideLoader,
 } from './js/render-functions';
+hideLoader();
 
 ref.form.addEventListener('submit', formSbmtHandler);
 
@@ -24,9 +25,7 @@ function formSbmtHandler(e) {
   getImagesByQuery(input)
     .then(createGallery)
     .catch(console.log)
-    .finally(() => {
-      hideLoader();
-    });
+    .finally(hideLoader);
 
   e.currentTarget.reset();
 }

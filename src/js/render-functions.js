@@ -59,11 +59,11 @@ export function createGallery(images) {
 }
 
 export function hideLoader() {
-  ref.loader.classList.remove('load');
+  ref.loader.style.display = 'none';
 }
 
 export function showLoader() {
-  ref.loader.classList.add('load');
+  ref.loader.style.display = 'block';
 }
 
 export function clearGallery() {

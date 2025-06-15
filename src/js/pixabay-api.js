@@ -4,7 +4,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 
 export default function getImagesByQuery(query) {
   return axios
-    .get('https://pixabay.com/api1/', {
+    .get('https://pixabay.com/api/', {
       params: {
         key: '50844575-9e292bfe2a1d78c665340f91a',
         q: query,

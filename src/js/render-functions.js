@@ -4,7 +4,7 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 export const ref = {
   form: document.querySelector('.form'),
   gallery: document.querySelector('.gallery'),
-  loader: document.querySelector('#loader'),
+  loader: document.querySelector('.loader'),
 };
 
 const gallery = new SimpleLightbox('.gallery a', {});
@@ -59,11 +59,11 @@ export function createGallery(images) {
 }
 
 export function hideLoader() {
-  ref.loader.classList.remove('loader');
+  ref.loader.classList.remove('load');
 }
 
 export function showLoader() {
-  ref.loader.classList.add('loader');
+  ref.loader.classList.add('load');
 }
 
 export function clearGallery() {

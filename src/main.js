@@ -101,6 +101,18 @@ async function onLoadBtnClick() {
       });
     }
 
+    const card = document.querySelector('.gallery-item');
+    if (!card) {
+      createGallery(hits);
+      return;
+    }
+    const { height } = card.getBoundingClientRect();
+
+    window.scrollBy({
+      top: height * 2,
+      behavior: 'smooth',
+    });
+
     createGallery(hits);
     showLoadMoreButton();
   } catch (error) {

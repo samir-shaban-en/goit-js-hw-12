@@ -12,7 +12,7 @@ import {
 } from './js/render-functions';
 
 hideLoader();
-let page = null;
+let page = 1;
 let inputValue = null;
 const limit = 15;
 
@@ -37,7 +37,8 @@ async function formSbmtHandler(e) {
   clearGallery();
 
   try {
-    const { hits } = await getImagesByQuery(inputValue, page);
+    const { hits, totalHits } = await getImagesByQuery(inputValue, page);
+    const totalPages = Math.ceil(totalHits / limit);
 
     if (hits.length === 0) {
       iziToast.warning({
@@ -47,11 +48,22 @@ async function formSbmtHandler(e) {
         color: 'red',
       });
       hideLoadMoreButton();
-      return true;
+      return;
+    } else {
+      iziToast.success({
+        message: `Images with ${inputValue} are found`,
+        position: 'topRight',
+        color: 'green',
+      });
+    }
+
+    if (page >= totalPages) {
+      hideLoadMoreButton();
+    } else {
+      showLoadMoreButton();
     }
 
     createGallery(hits);
-    showLoadMoreButton();
   } catch (error) {
     iziToast.warning({
       message: `${error}`,
@@ -82,6 +94,12 @@ async function onLoadBtnClick() {
       });
       hideLoadMoreButton();
       return;
+    } else {
+      iziToast.success({
+        message: `Images with ${inputValue} are found`,
+        position: 'topRight',
+        color: 'green',
+      });
     }
 
     createGallery(hits);
@@ -100,6 +118,9 @@ async function onLoadBtnClick() {
 
 function autoSkroll() {
   const card = document.querySelector('.gallery-item');
+  if (!card) {
+    return;
+  }
   const { height } = card.getBoundingClientRect();
 
   window.scrollBy({

@@ -24,7 +24,7 @@ async function formSbmtHandler(e) {
   inputValue = input;
   page = 1;
 
-  if (input === '') {
+  if (inputValue === '') {
     iziToast.warning({
       message: 'The input is empty',
       position: 'topRight',
@@ -36,7 +36,31 @@ async function formSbmtHandler(e) {
   showLoader();
   clearGallery();
 
-  await getApiDataAndCreateMarkup(inputValue, page);
+  try {
+    const { hits } = await getImagesByQuery(inputValue, page);
+
+    if (hits.length === 0) {
+      iziToast.warning({
+        message:
+          'Sorry, there are no images matching your search query. Please try again!',
+        position: 'topRight',
+        color: 'red',
+      });
+      hideLoadMoreButton();
+      return true;
+    }
+
+    createGallery(hits);
+    showLoadMoreButton();
+  } catch (error) {
+    iziToast.warning({
+      message: `${error}`,
+      position: 'topRight',
+    });
+  } finally {
+    ref.form.reset();
+    hideLoader();
+  }
 }
 
 ref.loadBtn.addEventListener('click', onLoadBtnClick);
@@ -45,30 +69,14 @@ async function onLoadBtnClick() {
   showLoader();
   page++;
 
-  await getApiDataAndCreateMarkup(inputValue, page);
-  autoSkroll();
-}
-
-async function getApiDataAndCreateMarkup(value, page) {
   try {
-    const { hits, totalHits } = await getImagesByQuery(value, page);
+    const { hits, totalHits } = await getImagesByQuery(inputValue, page);
     const totalPages = Math.ceil(totalHits / limit);
 
-    if (totalPages >= totalHits) {
+    if (page >= totalPages) {
       iziToast.warning({
         message:
           'We are sorry, but you have reached the end of search results.',
-        position: 'topRight',
-        color: 'red',
-      });
-      hideLoadMoreButton();
-      return;
-    }
-
-    if (hits.length === 0) {
-      iziToast.warning({
-        message:
-          'Sorry, there are no images matching your search query. Please try again!',
         position: 'topRight',
         color: 'red',
       });
@@ -86,6 +94,7 @@ async function getApiDataAndCreateMarkup(value, page) {
   } finally {
     ref.form.reset();
     hideLoader();
+    autoSkroll();
   }
 }
 

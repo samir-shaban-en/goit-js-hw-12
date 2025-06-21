@@ -5,6 +5,7 @@ export const ref = {
   form: document.querySelector('.form'),
   gallery: document.querySelector('.gallery'),
   loader: document.querySelector('.loader'),
+  loadBtn: document.querySelector('.load-btn'),
 };
 
 const gallery = new SimpleLightbox('.gallery a', {});
@@ -59,13 +60,19 @@ export function createGallery(images) {
 }
 
 export function hideLoader() {
-  ref.loader.style.display = 'none';
+  ref.loader.classList.add('hide');
 }
 
 export function showLoader() {
-  ref.loader.style.display = 'block';
+  ref.loader.classList.remove('hide');
 }
 
 export function clearGallery() {
   ref.gallery.innerHTML = '';
+}
+export function showLoadMoreButton() {
+  ref.loadBtn.classList.remove('hide');
+}
+export function hideLoadMoreButton() {
+  ref.loadBtn.classList.add('hide');
 }

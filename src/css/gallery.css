@@ -70,3 +70,25 @@ img {
 .info-item span {
   text-align: center;
 }
+.load-btn {
+  margin-top: 10px;
+  margin-inline: auto;
+  display: block;
+  width: 125px;
+  height: 40px;
+  padding: 8px 16px;
+  border: 0;
+
+  background: #4e75ff;
+  border-radius: 8px;
+
+  font-weight: 500;
+  font-size: 16px;
+
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+.hide {
+  display: none;
+}

@@ -56,7 +56,6 @@ async function formSbmtHandler(e) {
         color: 'green',
       });
     }
-
     if (page >= totalPages) {
       hideLoadMoreButton();
     } else {

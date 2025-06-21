@@ -10,7 +10,7 @@ export const ref = {
 
 const gallery = new SimpleLightbox('.gallery a', {});
 
-export function createGallery(images) {
+export async function createGallery(images) {
   const imagesMArkup = images
     .map(
       ({

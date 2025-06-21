@@ -101,19 +101,12 @@ async function onLoadBtnClick() {
       });
     }
 
-    const card = document.querySelector('.gallery-item');
-    if (!card) {
-      createGallery(hits);
-      return;
-    }
-    const { height } = card.getBoundingClientRect();
-
-    window.scrollBy({
-      top: height * 2,
-      behavior: 'smooth',
-    });
-
     createGallery(hits);
+
+    const card = document.querySelector('.gallery-item');
+    if (card) {
+      autoSkroll(card);
+    }
     showLoadMoreButton();
   } catch (error) {
     iziToast.warning({
@@ -122,16 +115,12 @@ async function onLoadBtnClick() {
     });
   } finally {
     ref.form.reset();
+
     hideLoader();
-    autoSkroll();
   }
 }
 
-function autoSkroll() {
-  const card = document.querySelector('.gallery-item');
-  if (!card) {
-    return;
-  }
+function autoSkroll(card) {
   const { height } = card.getBoundingClientRect();
 
   window.scrollBy({
